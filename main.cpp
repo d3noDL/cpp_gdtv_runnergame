@@ -9,6 +9,11 @@ int main() {
     // Acceleration due to gravity (pixels/frame)/frame
     const int GRAVITY{1};
     const int JUMP_VELOCITY{-22};
+    
+    Texture2D scarfy = LoadTexture("textures/scarfy.png");
+    Rectangle scarfy_rec;
+    Vector2 scarfy_pos;
+    
     // Rectangle directions
     const int REC_WIDTH{50};
     const int REC_HEIGHT{80};
