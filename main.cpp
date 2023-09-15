@@ -16,7 +16,7 @@ int main() {
     Vector2 nebula_pos{WINDOW_WIDTH, WINDOW_HEIGHT - nebula_rec.height};
 
     // Nebula X velocity (pixels/second)
-    int nebula_velocity{-600};
+    int nebula_velocity{-200};
 
     // Scarfy variables
     Texture2D scarfy = LoadTexture("textures/scarfy.png");
@@ -34,6 +34,10 @@ int main() {
     // Amount of time before we update the animation frame
     const float UPDATE_TIME{1.0/12.0};
     float running_time{};
+
+    int nebula_frame{};
+    const float NEBULA_UPDATE_TIME{1.0/12.0};
+    float nebula_running_time{};
 
     bool is_grounded{true};
     
@@ -73,6 +77,7 @@ int main() {
         // Update scarfy position.
         scarfy_pos.y += velocity * DT;
 
+        // Update scarfy anim frame
         if (is_grounded) {
             // Update running time.
             running_time += DT;
@@ -86,6 +91,18 @@ int main() {
                 if (frame > 5) {
                     frame = 0;
                 }
+            }
+        }
+
+        // Update nebula anim frame
+        nebula_running_time += DT;
+        if (nebula_running_time >= NEBULA_UPDATE_TIME) {
+            nebula_running_time = 0.0;
+            nebula_rec.x = nebula_frame * nebula_rec.width;
+            nebula_frame++;
+
+            if (nebula_frame > 7) {
+                nebula_frame = 0;
             }
         }
         
