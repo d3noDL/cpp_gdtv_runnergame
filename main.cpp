@@ -7,8 +7,8 @@ int main() {
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Runner Game");
     
     // Acceleration due to gravity (pixels/frame)/frame
-    const int GRAVITY{1};
-    const int JUMP_VELOCITY{-22};
+    const int GRAVITY{1'000};
+    const int JUMP_VELOCITY{-600};
     
     Texture2D scarfy = LoadTexture("textures/scarfy.png");
     Rectangle scarfy_rec;
@@ -31,6 +31,9 @@ int main() {
         ClearBackground(WHITE);
         /* BEGIN LOGIC */
 
+        // Delta time (Time since last frame)
+        const float DT{GetFrameTime()};
+
         // Check if on ground.
         if (scarfy_pos.y >= WINDOW_HEIGHT - scarfy_rec.height) {
             // Is on ground
@@ -39,7 +42,7 @@ int main() {
         }
         else {
             // Apply gravity.
-            velocity += GRAVITY;
+            velocity += GRAVITY * DT;
             is_grounded = false;
         }
 
@@ -49,7 +52,7 @@ int main() {
         }
         
         // Update position.
-        scarfy_pos.y += velocity;
+        scarfy_pos.y += velocity * DT;
 
         DrawTextureRec(scarfy, scarfy_rec, scarfy_pos, WHITE);
 
