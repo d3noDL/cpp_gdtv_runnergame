@@ -10,6 +10,12 @@ int main() {
     const int GRAVITY{1'000};
     const int JUMP_VELOCITY{-600};
     
+    // Nebula variables
+    Texture2D nebula = LoadTexture("textures/12_nebula_spritesheet.png");
+    Rectangle nebula_rec;
+    Vector2 nebula_pos;
+
+    // Scarfy variables
     Texture2D scarfy = LoadTexture("textures/scarfy.png");
     Rectangle scarfy_rec;
         scarfy_rec.width = scarfy.width/6;
@@ -79,5 +85,6 @@ int main() {
         EndDrawing();
     }
     UnloadTexture(scarfy);
+    UnloadTexture(nebula);
     CloseWindow(); // Shuts down the window properly.
 }
