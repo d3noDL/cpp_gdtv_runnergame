@@ -28,6 +28,8 @@ int main() {
         running_time: {0}
     };
 
+    AnimationData *anim_data = new AnimationData();
+
     AnimationData nebulae[2]{
         nebula_data,
         nebula_data
