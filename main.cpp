@@ -6,9 +6,14 @@ int main() {
     
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Runner Game");
     
+    // Acceleration due to gravity (pixels/frame)/frame
+    const int GRAVITY{1};
+    const int JUMP_VELOCITY{-22};
     // Rectangle directions
     const int REC_WIDTH{50};
     const int REC_HEIGHT{80};
+
+    bool is_grounded{true};
 
     int pos_y{WINDOW_HEIGHT - REC_HEIGHT};
     int velocity{0};
@@ -18,11 +23,25 @@ int main() {
         BeginDrawing();
         ClearBackground(WHITE);
         /* BEGIN LOGIC */
-        
-        if (IsKeyPressed(KEY_SPACE)) {
-            velocity -= 10;
+
+        // Check if on ground.
+        if (pos_y >= WINDOW_HEIGHT - REC_HEIGHT) {
+            // Is on ground
+            velocity = 0;
+            is_grounded = true;
+        }
+        else {
+            // Apply gravity.
+            velocity += GRAVITY;
+            is_grounded = false;
         }
 
+        // Check for jumping.
+        if (IsKeyPressed(KEY_SPACE) && is_grounded) {
+            velocity += JUMP_VELOCITY;
+        }
+        
+        // Update position.
         pos_y += velocity;
 
         DrawRectangle(WINDOW_WIDTH/2, pos_y, REC_WIDTH, REC_HEIGHT, BLUE);
