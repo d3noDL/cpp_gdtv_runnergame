@@ -20,6 +20,11 @@ int main() {
         scarfy_pos.x = WINDOW_WIDTH/2 - scarfy_rec.width/2;
         scarfy_pos.y = WINDOW_HEIGHT - scarfy_rec.height;
     
+    // Animation frame
+    int frame{};
+    // Amount of time before we update the animation frame
+    const float UPDATE_TIME{1.0/12.0};
+    float running_time{};
 
     bool is_grounded{true};
     
@@ -53,6 +58,20 @@ int main() {
         
         // Update position.
         scarfy_pos.y += velocity * DT;
+
+        // Update running time.
+        running_time += DT;
+        if (running_time >= UPDATE_TIME) {
+            running_time = 0.0;
+
+            // Update animation frame.
+            scarfy_rec.x = frame * scarfy_rec.width;
+            frame++;
+
+            if (frame > 5) {
+                frame = 0;
+            }
+        }
 
         DrawTextureRec(scarfy, scarfy_rec, scarfy_pos, WHITE);
 
