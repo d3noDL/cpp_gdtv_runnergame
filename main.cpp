@@ -28,7 +28,14 @@ int main() {
         running_time: {0}
     };
 
-    // Nebula X velocity (pixels/second)
+    AnimationData nebulae[2]{
+        nebula_data,
+        nebula_data
+    };
+
+    for (AnimationData neb : nebulae){
+        neb.frame = 2;
+    }
     
 
     // Scarfy variables
