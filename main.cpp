@@ -12,15 +12,17 @@ int main() {
     
     Texture2D scarfy = LoadTexture("textures/scarfy.png");
     Rectangle scarfy_rec;
+        scarfy_rec.width = scarfy.width/6;
+        scarfy_rec.height = scarfy.height;
+        scarfy_rec.x = 0;
+        scarfy_rec.y = 0;
     Vector2 scarfy_pos;
+        scarfy_pos.x = WINDOW_WIDTH/2 - scarfy_rec.width/2;
+        scarfy_pos.y = WINDOW_HEIGHT - scarfy_rec.height;
     
-    // Rectangle directions
-    const int REC_WIDTH{50};
-    const int REC_HEIGHT{80};
 
     bool is_grounded{true};
-
-    int pos_y{WINDOW_HEIGHT - REC_HEIGHT};
+    
     int velocity{0};
 
     SetTargetFPS(60);
@@ -30,7 +32,7 @@ int main() {
         /* BEGIN LOGIC */
 
         // Check if on ground.
-        if (pos_y >= WINDOW_HEIGHT - REC_HEIGHT) {
+        if (scarfy_pos.y >= WINDOW_HEIGHT - scarfy_rec.height) {
             // Is on ground
             velocity = 0;
             is_grounded = true;
@@ -47,12 +49,13 @@ int main() {
         }
         
         // Update position.
-        pos_y += velocity;
+        scarfy_pos.y += velocity;
 
-        DrawRectangle(WINDOW_WIDTH/2, pos_y, REC_WIDTH, REC_HEIGHT, BLUE);
+        DrawTextureRec(scarfy, scarfy_rec, scarfy_pos, WHITE);
 
         /* END LOGIC */
         EndDrawing();
     }
+    UnloadTexture(scarfy);
     CloseWindow(); // Shuts down the window properly.
 }
